@@ -14,8 +14,12 @@ class CommonController extends Controller
      */
     public function __construct()
     {
-        if(!Auth::check()) {
+        $this->authCheck();
+    }
+
+    protected function authCheck()
+    {
+        if(!Auth::check())
             return redirect()->route('login');
-        }
     }
 }

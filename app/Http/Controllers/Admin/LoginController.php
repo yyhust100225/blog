@@ -39,6 +39,8 @@ class LoginController extends CommonController
         $credentials = $request->only('name', 'password');
         if(Auth::attempt($credentials)){
             return redirect()->route('home');
+        } else {
+            return redirect()->route('login');
         }
     }
 }
