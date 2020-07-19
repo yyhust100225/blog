@@ -16,8 +16,8 @@ class HomeController extends CommonController
     /**
      * 后台首页
      */
-    public function index()
+    public function index(Request $request)
     {
-        echo '<a href=\'' . route('logout') . '\'>退出登录</a><br>index page';
+        return view('admin.home.dashboard');
     }
 }

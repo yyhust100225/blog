@@ -6,14 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends CommonController
 {
+    use AuthenticatesUsers;
+
     /**
      * 登录页
      * @return |\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function login()
+    public function showLoginForm()
     {
         if(Auth::check()) {
             return redirect()->route('home');
@@ -36,11 +39,20 @@ class LoginController extends CommonController
      */
     public function loginSubmit(Request $request)
     {
-        $credentials = $request->only('name', 'password');
-        if(Auth::attempt($credentials)){
-            return redirect()->route('home');
+        $credentials = $request->only($this->username($request), 'password');
+        $remember = (boolean)(isset($request->remember) ?? false);
+        if($res = Auth::attempt($credentials, $remember)){
+            return redirect()->intended(route('home'));
         } else {
             return redirect()->route('login');
         }
+    }
+
+    public function username(Request $request)
+    {
+        $username = $request->input('username');
+        $key = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        $request->merge([$key => $username]);
+        return $key;
     }
 }

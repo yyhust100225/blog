@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,17 @@ Route::get('/', function () {
 
 // 后台路由
 Route::namespace('Admin')->prefix('admin')->group(function(){
-    Route::get('home', 'HomeController@index')->name('home');
-    Route::get('login', 'LoginController@login')->name('login');
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
     Route::post('login_submit', 'LoginController@loginSubmit')->name('login_submit');
     Route::get('logout', 'LoginController@logout')->name('logout');
+    Route::middleware('auth')->group(function(){
+        Route::get('home', 'HomeController@index')->name('home');
+    });
+
+    /**
+     * Route::get('/profile', function(Request $request){
+     *    dd($request->user());
+     * })->middleware('auth.basic');
+    */
+    
 });
