@@ -36,6 +36,7 @@ class LoginController extends CommonController
     /**
      * 登录验证
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function loginSubmit(Request $request)
     {

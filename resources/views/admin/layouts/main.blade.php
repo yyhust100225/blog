@@ -45,7 +45,6 @@
 @yield('navbar', \Illuminate\Support\Facades\View::make('admin.layouts.navbar'))
 <!-- 左侧边菜单 -->
 @yield('sidemenu', \Illuminate\Support\Facades\View::make('admin.layouts.sidemenu'))
-@yield('magemenu', \Illuminate\Support\Facades\View::make('admin.layouts.magemenu'))
 <!-- 右侧边菜单 -->
 @yield('rightbar', \Illuminate\Support\Facades\View::make('admin.layouts.rightbar'))
 <!-- 主页 -->
