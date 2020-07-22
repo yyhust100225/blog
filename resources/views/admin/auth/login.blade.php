@@ -8,12 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Brego Bootstrap 4x admin is super flexible, powerful, clean &amp; modern responsive admin dashboard with unlimited possibilities.">
     <meta name="author" content="GetBootstrap, design by: puffintheme.com">
+<<<<<<< HEAD
+=======
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+>>>>>>> c6455b537309b952c369961f015f936ef9001f32
     <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
 
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/animate-css/vivify.min.css') }}">
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" href="{{ asset('assets/vendor/toastr/toastr.min.css') }}">
+>>>>>>> c6455b537309b952c369961f015f936ef9001f32
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/site.css') }}">
@@ -38,7 +46,11 @@
                 <p class="lead">登录你的账户</p>
             </div>
             <div class="body">
+<<<<<<< HEAD
                 <form method="post" class="form-auth-small" action="{{ route('login_submit') }}">
+=======
+                <form id="blog-login" class="form-auth-small" onsubmit="return false">
+>>>>>>> c6455b537309b952c369961f015f936ef9001f32
                     @csrf
                     <div class="form-group">
                         <label for="signin-email" class="control-label sr-only">用户名</label>
@@ -54,7 +66,11 @@
                             <span>记住我</span>
                         </label>
                     </div>
+<<<<<<< HEAD
                     <button type="submit" class="btn btn-primary btn-round btn-block">登录</button>
+=======
+                    <button id="login-submit" class="btn btn-primary btn-round btn-block">登录</button>
+>>>>>>> c6455b537309b952c369961f015f936ef9001f32
                     <div class="bottom">
                         <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="page-forgot-password.html">忘记密码?</a></span>
                         <span>还没有账户? <a href="page-register.html">注册</a></span>
@@ -73,5 +89,34 @@
 <script src="{{ asset('assets/vendor/particlesjs/particles.min.js') }}"></script>
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/pages/particlesjs.js') }}"></script>
+<<<<<<< HEAD
+=======
+<script src="{{ asset('assets/vendor/toastr/toastr.js') }}"></script>
+<script src="{{ asset('assets/js/login.js') }}"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $('form#blog-login button#login-submit').on('click', function(){
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('login_submit') }}",
+                data: $('form').serialize(),
+                dataType: 'json',
+                success: function(res) {
+                    toaAlert('success', res.message, function () {
+                        window.location.href = "{{ route('home') }}";
+                    });
+                },
+                error: function(e){
+                    console.log(e);
+                    toaAlert('error', e.responseJSON.message);
+                },
+                header: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
+        });
+    });
+</script>
+
+>>>>>>> c6455b537309b952c369961f015f936ef9001f32
 </body>
 </html>

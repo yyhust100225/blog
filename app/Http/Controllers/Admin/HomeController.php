@@ -18,7 +18,7 @@ class HomeController extends CommonController
      * 后台首页
      */
     public function index(Request $request)
-    {;
+    {
         return view('admin.home.dashboard');
     }
 }

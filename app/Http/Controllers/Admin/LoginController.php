@@ -34,21 +34,33 @@ class LoginController extends CommonController
     }
 
     /**
+
      * 登录验证
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function loginSubmit(Request $request)
     {
         $credentials = $request->only($this->username($request), 'password');
         $remember = (boolean)(isset($request->remember) ?? false);
         if($res = Auth::attempt($credentials, $remember)){
-            return redirect()->intended(route('home'));
+            return response()->json([
+                'success' => true,
+                'message' => trans('admin/auth.login success'),
+            ], 200);
         } else {
-            return redirect()->route('login');
+            return response()->json([
+                'success' => false,
+                'message' => trans('admin/auth.login failed'),
+            ], 401);
         }
     }
 
+    /**
+     * 获取验证用户名字段
+     * @param Request $request
+     * @return string
+     */
     public function username(Request $request)
     {
         $username = $request->input('username');

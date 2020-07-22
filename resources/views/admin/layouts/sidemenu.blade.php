@@ -23,6 +23,29 @@
         </div>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu">
+<<<<<<< HEAD
+=======
+
+                <li class="header">概览</li>
+                <li @if(in_array(request()->route()->getName(), ['home']))class="active"@endif><a href="app-chat.html"><i class="icon-bubbles"></i> <span>后台主页</span></a></li>
+
+                <li class="header">综合设置</li>
+                <li @if(in_array(request()->route()->getName(), ['users']))class="active"@endif>
+                    <a href="javascript:void(0);" class="has-arrow"><i class="icon-lock-open"></i><span>权限设置</span></a>
+                    <ul>
+                        <li @if(in_array(request()->route()->getName(), ['users']))class="active"@endif><a href="{{ route('users') }}">用户管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="has-arrow"><i class="icon-settings"></i><span>系统设置</span></a>
+                    <ul>
+                        <li><a href="index.html">基本参数</a></li>
+                        <li><a href="index.html">秘钥设置</a></li>
+                        <li><a href="index.html">邮件设置</a></li>
+                    </ul>
+                </li>
+
+>>>>>>> c6455b537309b952c369961f015f936ef9001f32
                 <li class="header">Main</li>
                 <li class="active">
                     <a href="#Dashboard" class="has-arrow"><i class="icon-speedometer"></i><span>Dashboard</span></a>

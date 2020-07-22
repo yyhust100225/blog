@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 
 
 @extends('admin.layouts.main')
 
+=======
+@extends('admin.layouts.main')
+>>>>>>> c6455b537309b952c369961f015f936ef9001f32
 @section('title', '后台控制板')
 
 @section('css')
