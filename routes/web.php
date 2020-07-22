@@ -24,29 +24,15 @@ Route::namespace('Admin')->prefix('admin')->group(function(){
     Route::post('login_submit', 'LoginController@loginSubmit')->name('login_submit');
     Route::get('logout', 'LoginController@logout')->name('logout');
     Route::middleware('auth')->group(function(){
-<<<<<<< HEAD
-        Route::get('home', 'HomeController@index')->name('home');
-    });
-
-=======
         // 后台主页
         Route::get('home', 'HomeController@index')->name('home');
         // 用户管理
         Route::get('users', 'UserController@users')->name('users');
         Route::get('users_data', 'UserController@usersData')->name('users_data');
     });
-
-
-
->>>>>>> c6455b537309b952c369961f015f936ef9001f32
     /**
      * Route::get('/profile', function(Request $request){
      *    dd($request->user());
      * })->middleware('auth.basic');
     */
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> c6455b537309b952c369961f015f936ef9001f32
 });

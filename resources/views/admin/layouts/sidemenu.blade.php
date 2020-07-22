@@ -6,11 +6,11 @@
     <div class="sidebar-scroll">
         <div class="user-account">
             <div class="user_div">
-                <img src="https://via.placeholder.com/140x140" class="user-photo" alt="User Profile Picture">
+                <img src="{{ request()->user()->userInfo->user_avatar }}" class="user-photo" alt="User Profile Picture">
             </div>
             <div class="dropdown">
                 <span>Welcome,</span>
-                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Louis Pierce</strong></a>
+                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ limit_length_str(request()->user()->userInfo->user_nickname, 15) }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                     <li><a href="page-profile.html"><i class="icon-user"></i>My Profile</a></li>
                     <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
@@ -23,8 +23,6 @@
         </div>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu">
-<<<<<<< HEAD
-=======
 
                 <li class="header">概览</li>
                 <li @if(in_array(request()->route()->getName(), ['home']))class="active"@endif><a href="app-chat.html"><i class="icon-bubbles"></i> <span>后台主页</span></a></li>
@@ -45,7 +43,6 @@
                     </ul>
                 </li>
 
->>>>>>> c6455b537309b952c369961f015f936ef9001f32
                 <li class="header">Main</li>
                 <li class="active">
                     <a href="#Dashboard" class="has-arrow"><i class="icon-speedometer"></i><span>Dashboard</span></a>

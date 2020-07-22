@@ -1,6 +1,4 @@
 $(function () {
-    $('.js-basic-example').DataTable();
-
     //Exportable table
     $('.js-exportable').DataTable({
         dom: 'Bfrtip',
@@ -28,7 +26,7 @@ function format ( d ) {
         '</tr>'+
     '</table>';
 }
- 
+
 $(document).ready(function() {
     var table = $('#example').DataTable( {
         "ajax": "assets/data/objects.txt",
@@ -46,12 +44,12 @@ $(document).ready(function() {
         ],
         "order": [[1, 'asc']]
     } );
-     
+
     // Add event listener for opening and closing details
     $('#example tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
- 
+
         if ( row.child.isShown() ) {
             // This row is already open - close it
             row.child.hide();
