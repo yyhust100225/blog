@@ -1,3 +1,120 @@
 .table-operation {
     margin-right: 5px;
 }
+
+/** badge */
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    -webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+}
+
+.badge {
+    vertical-align: middle;
+    padding: 7px 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border-radius: 30px;
+    font-size: 12px;
+    border: 0px;
+}
+
+.badge.badge-primary {
+    color: #fff;
+    background-color: #6777ef;
+}
+
+.badge.badge-success {
+    color: #fff;
+    background-color: #54ca68;
+}
+
+.badge.badge-secondary {
+    color: #fff;
+    background-color: #34395e;
+}
+
+.badge.badge-success {
+    color: #fff;
+    background-color: #54ca68;
+}
+
+.badge.badge-danger {
+    color: #fff;
+    background-color: #fc544b;
+}
+
+.badge.badge-warning {
+    color: #fff;
+    background-color: #ffc107;
+}
+
+.badge.badge-info {
+    color: #fff;
+    background-color: #17a2b8;
+}
+
+.badge.badge-light {
+    background-color: #e3eaef;
+    color: #191d21;
+}
+
+.badge.badge-dark {
+    color: #fff;
+    background-color: #191d21;
+}
+
+table.dataTable .badge-shadow {
+    -webkit-box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 .5rem 1rem rgba(0,0,0,0.15);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+}
+
+.data-table-header {
+    padding-bottom: 0px !important;
+}
+
+.table-buttons {
+    margin-top: 10px;
+}
+
+.form-multistep-header {
+    padding-top: 0px !important;
+}
+
+.form-radio {
+    padding-top: 0.375rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.375rem;
+    padding-left: 0.75rem;
+}
+
+.form-radio label {
+    margin-top: .25rem !important;
+    margin-bottom: .25rem !important;
+}
+.single-img-upload {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 .5rem 1rem rgba(0,0,0,0.15);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+}
+
+.single-img-upload img{
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}

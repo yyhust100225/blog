@@ -6,11 +6,11 @@
     <div class="sidebar-scroll">
         <div class="user-account">
             <div class="user_div">
-                <img src="{{ request()->user()->userInfo->user_avatar }}" class="user-photo" alt="User Profile Picture">
+                <img src="{{ request()->user()->userInfo->avatar }}" class="user-photo" alt="User Profile Picture">
             </div>
             <div class="dropdown">
                 <span>Welcome,</span>
-                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ limit_length_str(request()->user()->userInfo->user_nickname, 15) }}</strong></a>
+                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ limit_length_str(request()->user()->userInfo->nickname, 15) }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                     <li><a href="page-profile.html"><i class="icon-user"></i>My Profile</a></li>
                     <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
@@ -19,7 +19,7 @@
                     <li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
                 </ul>
             </div>
-            <button class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> Create New</button>
+            <a href="{{ route('user_create') }}" class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> Create New</a>
         </div>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu">

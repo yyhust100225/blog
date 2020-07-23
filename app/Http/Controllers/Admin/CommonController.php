@@ -17,6 +17,12 @@ class CommonController extends Controller
 
     }
 
+    /**
+     * 动态查询表格数据
+     * @param Request $request
+     * @param Eloquent $model
+     * @return mixed
+     */
     protected function tableData(Request $request, $model)
     {
         // 表格字段信息
@@ -35,7 +41,7 @@ class CommonController extends Controller
         $search = $request->get('search');
         if(!empty($search['value'])) {
             foreach($columns as $column)
-                if($column['searchable']) {
+                if($column['searchable'] === 'true') {
                     if ($column['data'] == 'id')
                         $model = $model->orWhere($column['data'], $search['value']);
                     else

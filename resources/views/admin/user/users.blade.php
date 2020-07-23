@@ -36,10 +36,9 @@
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="header">
-                            <h2>Basic Table <small>Basic example without any additional modification classes</small></h2>
+                        <div class="header data-table-header">
+                            <h2>Basic Table <small>abcdefg</small></h2>
                             <ul class="header-dropdown dropdown">
-
                                 <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -61,7 +60,7 @@
                                         <th>联系电话</th>
                                         <th>邮箱</th>
                                         <th>创建时间</th>
-                                        <th>激活时间</th>
+                                        <th>账户状态</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -115,8 +114,13 @@
                 {data:"user_info.user_tel", width:'10%', orderable:false, searchable:false},
                 {data:"email", orderable:true, width:'15%', searchable:true},
                 {data:"created_at", orderable:true, width:'10%', searchable:true},
-                {data:"email_verified_at", orderable:true, width:'10%', searchable:true},
-                {width: '10%', render:function(){
+                {data:'status', orderable:false, searchable:false, width:'10%', render: function(data){
+                    if(data === 0)
+                        return '<div class="badge badge-danger badge-shadow">禁用</div>';
+                    else
+                        return '<div class="badge badge-success badge-shadow">启用</div>';
+                }},
+                {orderable:false, searchable:false, width: '10%', render:function(){
                     return '<button class="table-operation btn btn-primary btn-sm">编辑</button>' +
                         '<button class="table-operation btn btn-danger btn-sm">删除</button>';
                 }}

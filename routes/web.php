@@ -28,7 +28,10 @@ Route::namespace('Admin')->prefix('admin')->group(function(){
         Route::get('home', 'HomeController@index')->name('home');
         // 用户管理
         Route::get('users', 'UserController@users')->name('users');
-        Route::get('users_data', 'UserController@usersData')->name('users_data');
+        Route::get('users/data', 'UserController@usersData')->name('users_data');
+        Route::get('user/create', 'UserController@create')->name('user_create');
+        Route::post('user/upload/avatar', 'UserController@uploadAvatar')->name('user_upload_avatar');
+        // Route::get('user/edit', 'UserController@edit')->name('user_edit');
     });
     /**
      * Route::get('/profile', function(Request $request){

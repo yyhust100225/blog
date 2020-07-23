@@ -37,6 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // 用户信息关联
     public function userInfo()
     {
         return $this->hasOne(UserInfo::class, 'user_id');

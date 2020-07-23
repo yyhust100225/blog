@@ -16,12 +16,12 @@ class CreateUserInfos extends Migration
         Schema::create('user_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->comment('用户ID');
-            $table->string('user_nickname', 128)->default('')->comment('用户昵称');
+            $table->string('nickname', 128)->default('')->comment('用户昵称');
             $table->enum('gender', ['m', 'f', 'u'])->default('m')->comment('用户性别');
-            $table->string('user_tel', 64)->default('')->comment('用户手机');
-            $table->string('user_avatar', 256)->default('')->comment('用户头像');
-            $table->unsignedInteger('user_department_id')->default(0)->comment('用户隶属部门');
-            $table->text('user_remark')->comment('用户备注');
+            $table->string('tel', 64)->default('')->comment('用户手机');
+            $table->string('avatar', 256)->default('')->comment('用户头像');
+            $table->unsignedInteger('department_id')->default(0)->comment('用户隶属部门');
+            $table->text('remark')->comment('用户备注');
             $table->timestamps();
         });
     }
