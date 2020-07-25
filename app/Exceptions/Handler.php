@@ -3,7 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+use http\Env\Request;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +53,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // 数据库查询执行失败
+        if($exception instanceof QueryException) {
+            return response()->json([
+                'message' => trans('admin/message.DB query failed'),
+                'success' => false,
+            ], 500);
+        }
         return parent::render($request, $exception);
     }
 }

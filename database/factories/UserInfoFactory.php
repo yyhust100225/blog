@@ -13,7 +13,7 @@ $factory->define(\App\Models\UserInfo::class, function (Faker $faker) {
         'nickname' => $faker->name,
         'gender' => $gender,
         'tel' => $faker->phoneNumber,
-        'avatar' => $faker->imageUrl(),
+        'avatar' => 'avatars/default-tx01.jpg',
         'department_id' => mt_rand(1,10),
         'remark' => $faker->text,
     ];

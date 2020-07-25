@@ -58,11 +58,8 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>用户名</th>
-                                        <th>联系电话</th>
-                                        <th>邮箱</th>
-                                        <th>创建时间</th>
-                                        <th>账户状态</th>
+                                        <th>角色名称</th>
+                                        <th>备注</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -105,7 +102,7 @@
             "serverSide": true,
             "scrollX": true,
             "ajax": {
-                url: "{{ route('users_data') }}",
+                url: "{{ route('role.data') }}",
                 type: 'GET',
                 dataType: 'json',
                 data: function(param){
@@ -114,18 +111,11 @@
             },
             "columns": [
                 {data:"id", orderable:true, width:'4%', searchable:true},
-                {data:"name", orderable:true, width:'10%', searchable:true},
-                {data:"user_info.tel", width:'10%', orderable:false, searchable:false},
-                {data:"email", orderable:true, width:'15%', searchable:true},
-                {data:"created_at", orderable:true, width:'10%', searchable:true},
-                {data:'status', orderable:false, searchable:false, width:'10%', render: function(data, type, row){
-                    if(data === 0)
-                        return '<div data-id="' + row.id + '" class="badge change-status badge-danger badge-shadow">禁用</div>';
-                    else
-                        return '<div data-id="' + row.id + '" class="badge change-status badge-success badge-shadow">启用</div>';
-                }},
+                {data:"name", orderable:true, width:'20%', searchable:true},
+                {data:"remark", orderable:true, width:'66%', searchable:true},
                 {data:"id", orderable:false, searchable:false, width: '10%', render:function(data){
-                    return '<button class="table-operation btn btn-danger btn-sm delete-form-data" data-id=' + data + '>删除</button>';
+                    return '<button class="table-operation btn btn-primary btn-sm edit-form-data" data-id=' + data + '>编辑</button>'+
+                        '<button class="table-operation btn btn-danger btn-sm delete-form-data" data-id=' + data + '>删除</button>';
                 }}
             ]
         });
@@ -136,34 +126,7 @@
             }
         });
 
-        $('table').on('click', '.change-status', function(data){
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('user_status') }}",
-                data: {id: $(this).data('id')},
-                dataType: 'json',
-                async: false,
-                success: function(res){
-                    if(res.success) {
-                        table.draw(false);
-                        // table.ajax.reload();
-                    }
-                },
-                error: function(e){
-                    console.log(e);
-                    $.each(e.responseJSON.errors, function(k,v){
-                        swal({
-                            title: "抱歉!",
-                            text: v[0],
-                            icon: "error",
-                        });
-                        return false;
-                    });
-                },
-            });
-        });
-
-        bindDeleteFormData("{{ route('user_delete') }}", table);
+        bindDeleteFormData("{{ route('role.delete') }}", table);
     </script>
 @endsection
 

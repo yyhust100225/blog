@@ -1,5 +1,5 @@
 @extends('admin.layouts.main')
-@section('title', '创建新账户')
+@section('title', '编辑账户')
 
 @section('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -36,66 +36,59 @@
                     <div class="card">
                         <form id="data-form" method="post" onsubmit="return false;" action="#">
                             @csrf
-                        <div class="header">
-                            <h2>账户信息</h2>
-                        </div>
-                        <div class="body">
+                            <div class="header">
+                                <h2>账户信息</h2>
+                            </div>
+                            <div class="body">
                                 <div class="form-group">
                                     <label>用户名</label>
-                                    <input name="name" value="" type="text" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label>密码</label>
-                                    <input name="password" value="" type="password" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label>确认密码</label>
-                                    <input name="_password" value="" type="password" class="form-control" />
+                                    <input name="name" value="{{ $user->name }}" type="text" class="form-control" />
                                 </div>
                                 <div class="form-group">
                                     <label>邮箱</label>
-                                    <input name="email" value="" type="email" class="form-control" />
-                                </div>
-                        </div>
-                        <div class="header form-multistep-header">
-                            <h2>基本信息</h2>
-                        </div>
-                        <div class="body">
-                            <div class="form-group">
-                                <label>用户昵称</label>
-                                <input name="nickname" value="" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>性别</label>
-                                <div class="form-radio">
-                                <label class="fancy-radio">
-                                    <input type="radio" name="gender" value="m" checked />
-                                    <span><i></i>男</span>
-                                </label>
-                                <label class="fancy-radio">
-                                    <input type="radio" name="gender" value="f">
-                                    <span><i></i>女</span>
-                                </label>
+                                    <input name="email" value="{{ $user->email }}" type="email" class="form-control" />
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>联系方式</label>
-                                <input name="tel" value="" type="text" class="form-control" />
+                            <div class="header form-multistep-header">
+                                <h2>基本信息</h2>
                             </div>
-                            <div class="form-group">
-                                <label>用户头像</label>
-                                <div class="single-img-upload">
-                                    <img id="avatar-upload-img" src="{{ \Illuminate\Support\Facades\Storage::disk('image')->url('avatars/default-tx01.jpg') }}" alt="头像预览" />
-                                    <input type="hidden" name="avatar" id="avatar-path" value="avatars/default-tx01.jpg" />
+                            <div class="body">
+                                <div class="form-group">
+                                    <label>用户昵称</label>
+                                    <input name="nickname" value="{{ $user->userInfo->nickname }}" type="text" class="form-control" />
                                 </div>
+                                <div class="form-group">
+                                    <label>性别</label>
+                                    <div class="form-radio">
+                                        <label class="fancy-radio">
+                                            <input type="radio" name="gender" value="m" @if($user->userInfo->gender == 'm') checked @endif />
+                                            <span><i></i>男</span>
+                                        </label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" name="gender" value="f" @if($user->userInfo->gender == 'f') checked @endif>
+                                            <span><i></i>女</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>联系方式</label>
+                                    <input name="tel" value="{{ $user->userInfo->tel }}" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>用户头像</label>
+                                    <div class="single-img-upload">
+                                        <img id="avatar-upload-img" src="{{ \Illuminate\Support\Facades\Storage::disk('image')->url($user->userInfo->avatar) }}" alt="头像预览" />
+                                        <input type="hidden" name="avatar" id="avatar-path" value="{{ $user->userInfo->avatar }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>账户备注</label>
+                                    <textarea name="remark" class="form-control">{{ $user->userInfo->remark }}</textarea>
+                                </div>
+                                <br>
+                                <input type="hidden" name="id" value="{{ $user->id }}" />
+                                <button id="btn-form-submit" class="btn btn-primary">提交</button>
                             </div>
-                            <div class="form-group">
-                                <label>账户备注</label>
-                                <textarea name="remark" class="form-control"></textarea>
-                            </div>
-                            <br>
-                            <button id="btn-form-submit" class="btn btn-primary">提交</button>
-                        </div>
                         </form>
                     </div>
                 </div>
@@ -147,7 +140,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('user_create_submit') }}",
+                    url: "{{ route('user_edit_submit') }}",
                     data: $('#data-form').serialize(),
                     dataType: 'json',
                     async: false,
@@ -155,7 +148,7 @@
                         if(res.success) {
                             swal({
                                 title: "恭喜您!",
-                                text: "创建用户成功!",
+                                text: "更新用户信息成功!",
                                 icon: "success",
                             }).then(function(){
                                 window.location = "{{ route('users') }}";

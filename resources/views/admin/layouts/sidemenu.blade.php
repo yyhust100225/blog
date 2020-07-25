@@ -6,15 +6,16 @@
     <div class="sidebar-scroll">
         <div class="user-account">
             <div class="user_div">
-                <img src="{{ request()->user()->userInfo->avatar }}" class="user-photo" alt="User Profile Picture">
+                <img src="{{ \Illuminate\Support\Facades\Storage::disk('image')->url(request()->user()->userInfo->avatar) }}" class="user-photo" alt="User Profile Picture">
             </div>
             <div class="dropdown">
                 <span>Welcome,</span>
-                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ limit_length_str(request()->user()->userInfo->nickname, 15) }}</strong></a>
+                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ limit_length_str(request()->user()->userInfo->nickname, 12) }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                     <li><a href="page-profile.html"><i class="icon-user"></i>My Profile</a></li>
                     <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
-                    <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
+                    <li><a href="{{ route('user_edit', ['id' => request()->user()->id]) }}"><i class="icon-settings"></i>Settings</a></li>
+                    <li><a href="{{ route('user_password', ['id' => request()->user()->id]) }}"><i class="icon-settings"></i>重置密码</a></li>
                     <li class="divider"></li>
                     <li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
                 </ul>
@@ -28,10 +29,11 @@
                 <li @if(in_array(request()->route()->getName(), ['home']))class="active"@endif><a href="app-chat.html"><i class="icon-bubbles"></i> <span>后台主页</span></a></li>
 
                 <li class="header">综合设置</li>
-                <li @if(in_array(request()->route()->getName(), ['users']))class="active"@endif>
+                <li @if(in_array(get_controller_name(request()), ['User', 'Role']))class="active"@endif>
                     <a href="javascript:void(0);" class="has-arrow"><i class="icon-lock-open"></i><span>权限设置</span></a>
                     <ul>
-                        <li @if(in_array(request()->route()->getName(), ['users']))class="active"@endif><a href="{{ route('users') }}">用户管理</a></li>
+                        <li @if(in_array(get_controller_name(request()), ['User']))class="active"@endif><a href="{{ route('users') }}">用户管理</a></li>
+                        <li @if(in_array(get_controller_name(request()), ['Role']))class="active"@endif><a href="{{ route('role.list') }}">角色管理</a></li>
                     </ul>
                 </li>
                 <li>

@@ -42,4 +42,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserInfo::class, 'user_id');
     }
+
+    // 用户角色表关联
+//    public function role()
+//    {
+//        return $this->belongsTo(Role::class, 'role_id');
+//    }
 }

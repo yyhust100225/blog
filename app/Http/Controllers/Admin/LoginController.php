@@ -44,11 +44,30 @@ class LoginController extends CommonController
         $credentials = $request->only($this->username($request), 'password');
         $remember = (boolean)(isset($request->remember) ?? false);
         if($res = Auth::attempt($credentials, $remember)){
-            return response()->json([
-                'success' => true,
-                'message' => trans('admin/auth.login success'),
-            ], 200);
+            // 账号禁用
+            if($request->user()->status == 0) {
+                // 退出登录
+                Auth::logout();
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('admin/auth.account disable'),
+                ], 401);
+            } else if($request->user()->deleted == 1) {
+                // 退出登录
+                Auth::logout();
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('admin/auth.account deleted'),
+                ], 401);
+            } else {
+                // 登录成功
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('admin/auth.login success'),
+                ], 200);
+            }
         } else {
+            // 登录失败
             return response()->json([
                 'success' => false,
                 'message' => trans('admin/auth.login failed'),

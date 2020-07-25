@@ -31,7 +31,22 @@ Route::namespace('Admin')->prefix('admin')->group(function(){
         Route::get('users/data', 'UserController@usersData')->name('users_data');
         Route::get('user/create', 'UserController@create')->name('user_create');
         Route::post('user/upload/avatar', 'UserController@uploadAvatar')->name('user_upload_avatar');
-        // Route::get('user/edit', 'UserController@edit')->name('user_edit');
+        Route::post('user/create/submit', 'UserController@createSubmit')->name('user_create_submit');
+        Route::get('user/edit/{id}', 'UserController@edit')->name('user_edit');
+        Route::post('user/edit/submit', 'UserController@editSubmit')->name('user_edit_submit');
+        Route::get('user/password/{id}', 'UserController@password')->name('user_password');
+        Route::post('user/password/reset', 'UserController@passwordReset')->name('user_password_reset');
+        Route::post('user/status', 'UserController@status')->name('user_status');
+        Route::post('user/delete', 'UserController@delete')->name('user_delete');
+
+        // 角色管理
+        Route::get('role/list', 'RoleController@list')->name('role.list');
+        Route::get('role/data', 'RoleController@data')->name('role.data');
+        Route::get('role/create', 'RoleController@create')->name('role.create');
+        Route::post('role/create/submit', 'RoleController@createSubmit')->name('role.create.submit');
+        Route::get('role/edit/{id}', 'RoleController@edit')->name('role.edit');
+        Route::post('role/edit/submit', 'RoleController@editSubmit')->name('role.edit.submit');
+        Route::post('role/delete', 'UserController@delete')->name('role.delete');
     });
     /**
      * Route::get('/profile', function(Request $request){
