@@ -88,6 +88,10 @@ table.dataTable .badge-shadow {
     margin-top: 10px;
 }
 
+.table-buttons button {
+    margin-bottom: 0px !important;
+}
+
 .form-multistep-header {
     padding-top: 0px !important;
 }

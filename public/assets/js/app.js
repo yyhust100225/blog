@@ -1,5 +1,30 @@
-function bindFormSubmit(request_url, reload_url, text)
-{
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+function bindInsertFormData(insert_url){
+    $('.insert-form-data').on('click', function(){
+        window.location.href = insert_url;
+    });
+}
+/**
+ * 跳转编辑页面 按钮绑定事件
+ * @param edit_url
+ */
+function bindEditFormData(edit_url) {
+    $('table').on('click', '.edit-form-data', function(data) {
+        window.location.href = edit_url + '/' + $(this).data('id');
+    });
+}
+
+/**
+ * 创建|编辑数据提交 按钮绑定事件
+ * @param request_url 创建数据提交url
+ * @param reload_url 创建成功后跳转url
+ */
+function bindFormSubmit(request_url, reload_url) {
     $('#btn-form-submit').on('click', function(){
         $('#btn-form-submit').addClass('disabled');
         $('#btn-form-submit').attr('disabled', 'true');
@@ -13,7 +38,7 @@ function bindFormSubmit(request_url, reload_url, text)
                 if(res.success) {
                     swal({
                         title: "恭喜您!",
-                        text: "更新用户信息成功!",
+                        text: res.message,
                         icon: "success",
                     }).then(function(){
                         window.location = reload_url;
@@ -37,8 +62,12 @@ function bindFormSubmit(request_url, reload_url, text)
     });
 }
 
-function bindDeleteFormData(delete_url, table)
-{
+/**
+ * 删除数据 按钮绑定事件
+ * @param delete_url 删除请求url
+ * @param table 表格对象, 用于删除后表格重载
+ */
+function bindDeleteFormData(delete_url, table) {
     $('table').on('click', '.delete-form-data', function(data){
         swal({
             title: "确认删除吗?",

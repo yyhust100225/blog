@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->unsignedInteger('role_id')->comment('账号角色ID');
             $table->unsignedTinyInteger('status')->default(0)->comment('账户状态');
-            $table->unsignedTinyInteger('deleted')->default(0)->comment('删除标识');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

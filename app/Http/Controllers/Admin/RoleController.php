@@ -34,7 +34,7 @@ class RoleController extends CommonController
      */
     public function data(Request $request, Role $role)
     {
-        return $this->tableData($request, $role->where('deleted', 'eq', NO_DELETED));
+        return $this->tableData($request, $role);
     }
 
     /**
@@ -57,14 +57,14 @@ class RoleController extends CommonController
     {
         // 验证提交数据
         $validatedData = $request->validate([
-            'name' => 'required|unique:roles|min:6',
+            'name' => 'required|unique:roles|min:2',
         ]);
 
         $data = $request->all();
 
         // 创建新角色
         $role->name = $data['name'];
-        $role->remark = $data['remark'];
+        $role->remark = empty($data['remark']) ? '' : $data['remark'];
 
         // 存储数据
         DB::transaction(function() use($role){
@@ -84,9 +84,13 @@ class RoleController extends CommonController
      * @param Role $role
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id, Request $request, Role $role)
+    public function edit($id = NULL, Request $request, Role $role)
     {
-        $role = $role->find($id);
+        // 找不到指定编辑资源
+        if(is_null($id) || !($role = $role->find($id))) {
+            abort(404);
+        }
+
         return view('admin.role.edit', [
             'role' => $role,
         ]);
@@ -103,10 +107,16 @@ class RoleController extends CommonController
         $id = $request->input('id');
         // 验证提交数据
         $validatedData = $request->validate([
-            'name' => ['required', 'min:6', Rule::unique('roles')->ignore($id)],
+            'name' => ['required', 'min:2', Rule::unique('roles')->ignore($id)],
         ]);
 
-        $role = $role->find($id);
+        // 查询不到指定编辑资源
+        if(!$role = $role->find($id))
+            return response()->json([
+                'success' => false,
+                'message' => trans('admin/message.request failed'),
+            ], 404);
+
         $data = $request->all();
 
         // 更新角色信息
@@ -135,11 +145,9 @@ class RoleController extends CommonController
         $id = $request->input('id');
         $role = $role->find($id);
 
-        $role->deleted = DELETED;
-
         // 存储数据
         DB::transaction(function() use($role){
-            $role->save();
+            $role->delete();
         }, 5);
 
         return response()->json([

@@ -40,6 +40,9 @@
                     <div class="card">
                         <div class="header data-table-header">
                             <h2>Basic Table <small>abcdefg</small></h2>
+                            <div class="table-buttons">
+                                <button type="button" class="btn btn-primary btn-sm insert-form-data">新增</button>
+                            </div>
                             <ul class="header-dropdown dropdown">
                                 <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                 <li class="dropdown">
@@ -111,7 +114,7 @@
             },
             "columns": [
                 {data:"id", orderable:true, width:'4%', searchable:true},
-                {data:"name", orderable:true, width:'20%', searchable:true},
+                {data:"name", orderable:true, width:'30%', searchable:true},
                 {data:"remark", orderable:true, width:'66%', searchable:true},
                 {data:"id", orderable:false, searchable:false, width: '10%', render:function(data){
                     return '<button class="table-operation btn btn-primary btn-sm edit-form-data" data-id=' + data + '>编辑</button>'+
@@ -120,12 +123,8 @@
             ]
         });
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
+        bindInsertFormData("{{ route('role.create') }}");
+        bindEditFormData("{{ route('role.edit') }}");
         bindDeleteFormData("{{ route('role.delete') }}", table);
     </script>
 @endsection

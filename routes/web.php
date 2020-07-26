@@ -44,9 +44,9 @@ Route::namespace('Admin')->prefix('admin')->group(function(){
         Route::get('role/data', 'RoleController@data')->name('role.data');
         Route::get('role/create', 'RoleController@create')->name('role.create');
         Route::post('role/create/submit', 'RoleController@createSubmit')->name('role.create.submit');
-        Route::get('role/edit/{id}', 'RoleController@edit')->name('role.edit');
+        Route::get('role/edit/{id?}', 'RoleController@edit')->name('role.edit');
         Route::post('role/edit/submit', 'RoleController@editSubmit')->name('role.edit.submit');
-        Route::post('role/delete', 'UserController@delete')->name('role.delete');
+        Route::post('role/delete', 'RoleController@delete')->name('role.delete');
     });
     /**
      * Route::get('/profile', function(Request $request){

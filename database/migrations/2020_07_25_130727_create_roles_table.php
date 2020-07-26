@@ -17,7 +17,7 @@ class CreateRolesTable extends Migration
             $table->increments('id');
             $table->string('name', 255)->default('')->comment('角色名称');
             $table->text('remark')->comment('角色备注');
-            $table->unsignedTinyInteger('deleted')->default(0)->comment('删除标识');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
