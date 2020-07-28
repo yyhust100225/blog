@@ -1,9 +1,16 @@
+/**
+ * ajax 防止csrf攻击
+ */
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
 
+/**
+ * 挑战新增数据页面 绑定按钮事件
+ * @param insert_url
+ */
 function bindInsertFormData(insert_url){
     $('.insert-form-data').on('click', function(){
         window.location.href = insert_url;
@@ -25,9 +32,9 @@ function bindEditFormData(edit_url) {
  * @param reload_url 创建成功后跳转url
  */
 function bindFormSubmit(request_url, reload_url) {
-    $('#btn-form-submit').on('click', function(){
-        $('#btn-form-submit').addClass('disabled');
-        $('#btn-form-submit').attr('disabled', 'true');
+    $('#submit-form-data').on('click', function(){
+        $('#submit-form-data').addClass('disabled');
+        $('#submit-form-data').attr('disabled', 'true');
         $.ajax({
             type: 'POST',
             url: request_url,
@@ -55,8 +62,8 @@ function bindFormSubmit(request_url, reload_url) {
                     });
                     return false;
                 });
-                $('#btn-form-submit').removeClass('disabled');
-                $('#btn-form-submit').removeAttr('disabled');
+                $('#submit-form-data').removeClass('disabled');
+                $('#submit-form-data').removeAttr('disabled');
             },
         });
     });
@@ -87,7 +94,7 @@ function bindDeleteFormData(delete_url, table) {
                         if(res.success) {
                             swal({
                                 title: "恭喜您!",
-                                text: "信息删除成功!",
+                                text: res.message,
                                 icon: "success",
                             }).then(function(){
                                 table.draw(false);

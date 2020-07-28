@@ -45,8 +45,8 @@ class User extends Authenticatable
     }
 
     // 用户角色表关联
-//    public function role()
-//    {
-//        return $this->belongsTo(Role::class, 'role_id');
-//    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }

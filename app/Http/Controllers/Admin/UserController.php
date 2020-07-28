@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserInfo;
 use App\Rules\Password;
@@ -21,9 +22,9 @@ class UserController extends CommonController
      * 用户列表页
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function users()
+    public function list()
     {
-        return view('admin.user.users');
+        return view('admin.user.list');
     }
 
     /**
@@ -31,9 +32,9 @@ class UserController extends CommonController
      * @param Request $request
      * @return mixed
      */
-    public function usersData(Request $request, User $user)
+    public function data(Request $request, User $user)
     {
-        return $this->tableData($request, $user->with('userInfo')->where('deleted', 'eq', NO_DELETED));
+        return $this->tableData($request, $user->with('userInfo'));
     }
 
     /**
@@ -42,7 +43,11 @@ class UserController extends CommonController
      */
     public function create()
     {
-        return view('admin.user.create');
+        // 获取角色列表
+        $roles = Role::get(['id', 'name']);
+        return view('admin.user.create', [
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -81,6 +86,7 @@ class UserController extends CommonController
         $user->name = $data['name'];
         $user->password = Hash::make($data['password']);
         $user->email = $data['email'];
+        $user->role_id = $data['role_id'];
         $user->status = FORBIDDEN;
 
         // 创建用户基本信息
@@ -110,8 +116,11 @@ class UserController extends CommonController
     public function edit($id, Request $request, User $user)
     {
         $user = $user->with('userInfo')->find($id);
+        // 获取角色列表
+        $roles = Role::get(['id', 'name']);
         return view('admin.user.edit', [
             'user' => $user,
+            'roles' => $roles,
         ]);
     }
 
@@ -135,6 +144,7 @@ class UserController extends CommonController
         // 更新用户
         $user->name = $data['name'];
         $user->email = $data['email'];
+        $user->role_id = $data['role_id'];
 
         // 更新基本信息
         $user->userInfo->nickname = !is_null($data['nickname']) ? $data['nickname'] : '';
@@ -207,11 +217,9 @@ class UserController extends CommonController
         $id = $request->input('id');
         $user = $user->find($id);
 
-        $user->deleted = DELETED;
-
         // 存储数据
         DB::transaction(function() use($user){
-            $user->save();
+            $user->delete();
         }, 5);
 
         return response()->json([

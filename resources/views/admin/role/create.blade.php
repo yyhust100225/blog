@@ -49,7 +49,7 @@
                                     <textarea name="remark" class="form-control"></textarea>
                                 </div>
                                 <br>
-                                <button id="btn-form-submit" class="btn btn-primary">提交</button>
+                                <button id="submit-form-data" class="btn btn-primary">提交</button>
                             </div>
                         </form>
                     </div>

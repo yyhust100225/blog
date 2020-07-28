@@ -1,11 +1,12 @@
 @extends('admin.layouts.main')
-@section('title', '编辑角色')
+@section('title', '创建新权限')
 
 @section('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href={{ asset("assets/vendor/bootstrap/css/bootstrap.min.css") }}>
+    <link rel="stylesheet" href={{ asset("assets/vendor/font-awesome/css/font-awesome.min.css") }}>
     <link rel="stylesheet" href={{ asset("assets/vendor/animate-css/vivify.min.css") }}>
     <link rel="stylesheet" href="{{ asset('assets/vendor/sweetalert/sweetalert.css') }}" />
 
@@ -36,19 +37,26 @@
                         <form id="data-form" method="post" onsubmit="return false;" action="#">
                             @csrf
                             <div class="header">
-                                <h2>角色信息</h2>
+                                <h2>权限信息</h2>
                             </div>
                             <div class="body">
                                 <div class="form-group">
-                                    <label for="name">角色名称</label>
-                                    <input id="name" name="name" value="{{ $role->name }}" type="text" class="form-control" />
+                                    <label for="name">权限名称</label>
+                                    <input id="name" name="name" value="" type="text" class="form-control" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="remark">备注</label>
-                                    <textarea id="remark" name="remark" class="form-control">{{ $role->remark }}</textarea>
+                                    <label for="controller">控制器</label>
+                                    <input id="controller" name="controller" value="" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="route">路由</label>
+                                    <input id="route" name="route" value="" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="remark">权限备注</label>
+                                    <textarea id="remark" name="remark" class="form-control"></textarea>
                                 </div>
                                 <br>
-                                <input type="hidden" name="id" value="{{ $role->id }}" />
                                 <button id="submit-form-data" class="btn btn-primary">提交</button>
                             </div>
                         </form>
@@ -67,9 +75,10 @@
     <script src="{{ asset('assets/js/sweetalert.js') }}"></script>
 
     <script src="{{ asset('assets/layui/layui.js') }}" charset="utf-8"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
     <script type="text/javascript">
         $(function(){
-            bindFormSubmit("{{ route('role.edit.submit') }}", "{{ route('role.list') }}");
+            bindFormSubmit("{{ route('privilege.create.submit') }}", "{{ route('privilege.list') }}");
         });
     </script>
 @endsection

@@ -48,6 +48,14 @@
                                     <label>邮箱</label>
                                     <input name="email" value="{{ $user->email }}" type="email" class="form-control" />
                                 </div>
+                                <div class="form-group">
+                                    <label>账号角色</label>
+                                    <select name="role_id" class="form-control">
+                                        @foreach($roles as $role)
+                                            <option @if($role->id == $user->role_id) selected @endif value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="header form-multistep-header">
                                 <h2>基本信息</h2>
@@ -87,7 +95,7 @@
                                 </div>
                                 <br>
                                 <input type="hidden" name="id" value="{{ $user->id }}" />
-                                <button id="btn-form-submit" class="btn btn-primary">提交</button>
+                                <button id="submit-form-data" class="btn btn-primary">提交</button>
                             </div>
                         </form>
                     </div>
@@ -102,7 +110,8 @@
     <script src="{{ asset("assets/bundles/libscripts.bundle.js") }}"></script>
     <script src="{{ asset("assets/bundles/vendorscripts.bundle.js") }}"></script>
     <script src="{{ asset("assets/bundles/mainscripts.bundle.js") }}"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ asset('assets/js/sweetalert.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 
     <script src="{{ asset('assets/layui/layui.js') }}" charset="utf-8"></script>
     <script type="text/javascript">
@@ -112,7 +121,7 @@
             // 头像上传
             var uploadInst = upload.render({
                 elem: '#avatar-upload-img',
-                url: '{{ route('user_upload_avatar') }}',
+                url: '{{ route('user.upload.avatar') }}',
                 field: 'avatar',
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 before: function(obj){
@@ -132,44 +141,7 @@
         });
 
         $(function(){
-
-            $('#btn-form-submit').on('click', function(){
-
-                $('#btn-form-submit').addClass('disabled');
-                $('#btn-form-submit').attr('disabled', 'true');
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('user_edit_submit') }}",
-                    data: $('#data-form').serialize(),
-                    dataType: 'json',
-                    async: false,
-                    success: function(res){
-                        if(res.success) {
-                            swal({
-                                title: "恭喜您!",
-                                text: "更新用户信息成功!",
-                                icon: "success",
-                            }).then(function(){
-                                window.location = "{{ route('users') }}";
-                            });
-                        }
-                    },
-                    error: function(e){
-                        console.log(e);
-                        $.each(e.responseJSON.errors, function(k,v){
-                            swal({
-                                title: "抱歉!",
-                                text: v[0],
-                                icon: "error",
-                            });
-                            return false;
-                        });
-                        $('#btn-form-submit').removeClass('disabled');
-                        $('#btn-form-submit').removeAttr('disabled');
-                    },
-                });
-            });
+            bindFormSubmit("{{ route('user.edit.submit') }}", "{{ route('user.list') }}");
         });
     </script>
 @endsection

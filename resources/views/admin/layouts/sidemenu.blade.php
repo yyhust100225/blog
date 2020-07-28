@@ -14,13 +14,13 @@
                 <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                     <li><a href="page-profile.html"><i class="icon-user"></i>My Profile</a></li>
                     <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
-                    <li><a href="{{ route('user_edit', ['id' => request()->user()->id]) }}"><i class="icon-settings"></i>Settings</a></li>
-                    <li><a href="{{ route('user_password', ['id' => request()->user()->id]) }}"><i class="icon-settings"></i>重置密码</a></li>
+                    <li><a href="{{ route('user.edit', ['id' => request()->user()->id]) }}"><i class="icon-settings"></i>Settings</a></li>
+                    <li><a href="{{ route('user.password', ['id' => request()->user()->id]) }}"><i class="icon-settings"></i>重置密码</a></li>
                     <li class="divider"></li>
                     <li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
                 </ul>
             </div>
-            <a href="{{ route('user_create') }}" class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> Create New</a>
+            <a href="{{ route('user.create') }}" class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> Create New</a>
         </div>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu">
@@ -29,11 +29,12 @@
                 <li @if(in_array(request()->route()->getName(), ['home']))class="active"@endif><a href="app-chat.html"><i class="icon-bubbles"></i> <span>后台主页</span></a></li>
 
                 <li class="header">综合设置</li>
-                <li @if(in_array(get_controller_name(request()), ['User', 'Role']))class="active"@endif>
+                <li @if(in_array(get_controller_name(request()), ['User', 'Role', 'Privilege']))class="active"@endif>
                     <a href="javascript:void(0);" class="has-arrow"><i class="icon-lock-open"></i><span>权限设置</span></a>
                     <ul>
-                        <li @if(in_array(get_controller_name(request()), ['User']))class="active"@endif><a href="{{ route('users') }}">用户管理</a></li>
+                        <li @if(in_array(get_controller_name(request()), ['User']))class="active"@endif><a href="{{ route('user.list') }}">用户管理</a></li>
                         <li @if(in_array(get_controller_name(request()), ['Role']))class="active"@endif><a href="{{ route('role.list') }}">角色管理</a></li>
+                        <li @if(in_array(get_controller_name(request()), ['Privilege']))class="active"@endif><a href="{{ route('privilege.list') }}">权限管理</a></li>
                     </ul>
                 </li>
                 <li>

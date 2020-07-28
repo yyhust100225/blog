@@ -105,7 +105,7 @@
             "serverSide": true,
             "scrollX": true,
             "ajax": {
-                url: "{{ route('users_data') }}",
+                url: "{{ route('user.data') }}",
                 type: 'GET',
                 dataType: 'json',
                 data: function(param){
@@ -139,7 +139,7 @@
         $('table').on('click', '.change-status', function(data){
             $.ajax({
                 type: 'POST',
-                url: "{{ route('user_status') }}",
+                url: "{{ route('user.status') }}",
                 data: {id: $(this).data('id')},
                 dataType: 'json',
                 async: false,
@@ -163,7 +163,7 @@
             });
         });
 
-        bindDeleteFormData("{{ route('user_delete') }}", table);
+        bindDeleteFormData("{{ route('user.delete') }}", table);
     </script>
 @endsection
 

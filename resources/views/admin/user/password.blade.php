@@ -54,7 +54,7 @@
                                 </div>
                                 <br>
                                 <input type="hidden" name="id" value="{{ request()->user()->id }}">
-                                <button id="btn-form-submit" class="btn btn-primary">提交</button>
+                                <button id="submit-form-data" class="btn btn-primary">提交</button>
                             </div>
                         </form>
                     </div>
@@ -73,7 +73,7 @@
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script type="text/javascript">
         $(function(){
-            bindFormSubmit("{{ route('user_password_reset') }}", "{{ route('users') }}", '密码重置成功');
+            bindFormSubmit("{{ route('user.password.reset') }}", "{{ route('user.list') }}", '密码重置成功');
         });
     </script>
 @endsection
